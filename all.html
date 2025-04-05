@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tarek Ashraf</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe&display=swap" rel="stylesheet">
+  <style>
+    body, html{
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #e6e6e6;
+      color: #191919;
+      font-family: 'Alumni Sans Pinstripe', sans-serif;
+
+    }
+
+    /* Vertical lines */
+    .line-left, .line-right {
+        position: absolute;
+        top: 30px;
+        width: 0.5px; /* Line thickness */
+      height: calc(100vh - 60px);   
+        background-color: #191919;
+    }
+
+    .line-left {
+        left: 30px;
+    }
+
+    .line-right {
+        right: 30px;
+    }
+
+    /* Horizontal lines */
+    .line-top, .line-bottom {
+        position: absolute;
+        left: 30px;
+        width: calc(100vw - 60px);
+        height: 0.5px; /* Line thickness */
+        background-color: #191919;
+    }
+
+    .line-top {
+        top: 30px;
+    }
+
+    .line-bottom {
+        bottom: 30px;
+    }
+
+    .box{
+        width: 90%; /* Adjust width dynamically */
+        height: 90%; /* Adjust height dynamically */
+    /*    background-color: lightblue;*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+
+    .cursor-dot {
+        position: fixed;
+        width: 20px;  /* Size of the dot */
+        height: 20px;
+        background-color: #191919;
+        border-radius: 50%; /* Makes it a perfect circle */
+        pointer-events: none; /* Prevents it from interfering with clicks */
+        transform: translate(-50%, -50%); /* Centers the dot on the cursor */
+        transition: transform 0.07s linear; /* Smooth effect */
+    /*                box-shadow 3s cubic-bezier(0.75, 1, 0.75, 1); /* Smooth effect */*/
+        z-index: 9999; /* Ensures it’s always on top */
+    }
+
+
+    .cursor-dot.hover {
+        background-color: #e6e6e6; /* Change to any color you want */
+        box-shadow: 0 0 5px 2px rgba(25, 25, 25, 0.6);  
+    }
+
+    /* Change color when outside the box */
+    .cursor-dot.outside {
+        background-color: red; /* Change this to any color */
+    }
+
+    .name {
+        position: absolute;
+        top: 60px; /* Adjust spacing from the top */
+        left: 60px; /* Adjust spacing from the left */
+        font-size: 100px; /* Adjust text size */
+        font-weight: 500; /* Make it bold */
+        letter-spacing: -1px;
+    }
+    .job {
+        position: absolute;
+        top: 150px; /* Adjust spacing from the top */
+        left: 70px; /* Adjust spacing from the left */
+        font-size: 35px; /* Adjust text size */
+        font-weight: 400; /* Make it bold */
+        letter-spacing: 2px;
+    }
+
+    .sidebar {
+        position: absolute;
+        top: 210px;
+        left: 70px;
+        padding-left: 20px;
+        border-left: 1px solid #191919;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        position: relative;
+        padding-bottom: 5px;
+        transition: color 0.3s ease;
+    }
+
+    .sidebar a::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background: #191919;
+        transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    .sidebar a.active::after {
+        width: 100%;
+        left: 0;
+    }
+
+    .nav-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+    }
+
+    .nav-list li {
+        position: relative;
+        margin: 10px 0;
+    }
+
+    /* The box that will slide in */
+    .nav-list li::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -5px; /* Start slightly outside the border */
+        width: 0;
+        height: 100%;
+        background: #191919;
+        transition: width 0.3s ease-in-out;
+        z-index: -1; /* Ensures it goes behind the text */
+    }
+
+    /* On hover, the box expands */
+    .nav-list li:hover::before {
+        width: 100%; /* Expands to cover the text */
+    }
+
+    /* Style for the text */
+    .nav-list a {
+        text-decoration: none;
+        font-size: 35px;
+        color: black;
+        padding: 5px 10px;
+        display: inline-block;
+        position: relative;
+        z-index: 1; /* Keeps text above the hover effect */
+        transition: color 0.5s ease-in-out;
+    }
+
+    /* Change text color on hover */
+    .nav-list li:hover a {
+        color: white;
+    }
+
+    .content {    
+      position: absolute;
+      top: 250px;
+      left: 300px;
+      width: 60%;
+      height: auto;
+      font-size: 24px;
+      transition: opacity 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="line-left"></div>
+    <div class="line-right"></div>
+    <div class="line-top"></div>
+    <div class="line-bottom"></div>
+    
+    <div class="name">Tarek Ashraf</div>
+    <div class="job">Machine Learning Engineer</div>
+
+    <div class="sidebar">
+      <ul class="nav-list">
+          <li><a href="#home" class="nav-link" data-section="home">Home</a></li>
+          <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+          <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
+          <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="content">
+        <!-- Dynamic content will be loaded here -->
+    </div>
+
+  </div>
+
+<script>
+  const cursorDot = document.createElement("div"); // Create the dot
+  cursorDot.classList.add("cursor-dot");
+  document.body.appendChild(cursorDot); // Add it to the page
+
+  let mouseX = 0, mouseY = 0;
+  let dotX = 0, dotY = 0;
+
+  document.addEventListener("mousemove", (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+  });
+
+  // Function to smoothly update the dot’s position
+  function animateDot() {
+      dotX += (mouseX - dotX) * 0.1; // Adjust the lag effect
+      dotY += (mouseY - dotY) * 0.1;
+
+      cursorDot.style.left = `${dotX}px`;    
+      cursorDot.style.top = `${dotY}px`;
+
+      requestAnimationFrame(animateDot);
+  }
+
+  animateDot(); // Start the animation
+
+  // Change color when hovering over text
+  document.querySelectorAll("p, h1, h2, h3, h4, h5, h6, a, span, div").forEach((element) => {
+      element.addEventListener("mouseenter", () => {
+          cursorDot.classList.add("hover");
+      });
+      element.addEventListener("mouseleave", () => {
+          cursorDot.classList.remove("hover");
+      });
+  });
+
+  // const contentData = {
+  //   home: "Welcome to my portfolio.",
+  //   about: "I am a Machine Learning Engineer passionate about AI and innovation.",
+  //   projects: "Here are some of my projects: AI applications, NLP models, and more.",
+  //   contact: "Get in touch: tarek@example.com"
+  // };
+
+  // document.querySelectorAll('.nav-link').forEach(link => {
+  //   link.addEventListener('click', function(event) {
+  //     event.preventDefault();
+  //     const section = this.getAttribute('data-section');
+  //     document.getElementById('content').style.opacity = 0;
+  //     setTimeout(() => {
+  //       document.getElementById('content').innerHTML = contentData[section];
+  //       document.getElementById('content').style.opacity = 1;
+  //     }, 300);
+  //   });
+  // });
+
+function loadContent(section) {
+    fetch(`${section}.html`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load ${section}.html`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.querySelector(".content").innerHTML = html;
+        })
+        .catch(error => {
+            console.error("Error loading content:", error);
+            document.querySelector(".content").innerHTML = "<p>Sorry, the page could not be loaded.</p>";
+        });
+}
+
+// Event listeners for navigation
+document.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent default anchor behavior
+        const section = event.target.dataset.section;
+        loadContent(section);
+    });
+});
+
+// Load the home page by default
+window.onload = () => loadContent("home");
+</script>
+</body>
+</html>

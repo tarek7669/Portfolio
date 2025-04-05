@@ -1,0 +1,534 @@
+body, html{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+    overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center; 
+	background-color: #e6e6e6;
+	color: #191919;
+	font-family: 'Alumni Sans Pinstripe', sans-serif;
+    transition: background-color 0.6s ease-in-out;
+
+}
+
+/* Vertical lines */
+.line-left, .line-right {
+    position: absolute;
+    top: 30px;
+    width: 0.5px; /* Line thickness */
+ 	height: calc(100vh - 60px);		
+    background-color: #191919;
+}
+
+.line-left {
+    left: 30px;
+}
+
+.line-right {
+    right: 30px;
+}
+
+/* Horizontal lines */
+.line-top, .line-bottom {
+    position: absolute;
+    left: 30px;
+ 	width: calc(100vw - 60px);
+    height: 0.5px; /* Line thickness */
+    background-color: #191919;
+}
+
+.line-top {
+    top: 30px;
+}
+
+.line-bottom {
+    bottom: 30px;
+}
+
+.box{
+    width: 90%; /* Adjust width dynamically */
+    height: 90%; /* Adjust height dynamically */
+/*    background-color: lightblue;*/
+    display: flex;
+    justify-content: ce/*nter;
+    align-items: center;
+    font-size: 2rem;
+    text-align: center;*/
+}
+
+
+.cursor-dot {
+    position: fixed;
+    width: 20px;  /* Size of the dot */
+    height: 20px;
+    background-color: #191919;
+    border-radius: 50%; /* Makes it a perfect circle */
+    pointer-events: none; /* Prevents it from interfering with clicks */
+    transform: translate(-50%, -50%); /* Centers the dot on the cursor */
+    transition: transform 0.07s linear; /* Smooth effect */
+/*                box-shadow 3s cubic-bezier(0.75, 1, 0.75, 1); /* Smooth effect */
+    z-index: 9999; /* Ensures it’s always on top */
+}
+
+
+.cursor-dot.hover {
+    background-color: #e6e6e6; /* Change to any color you want */
+    box-shadow: 0 0 5px 2px rgba(25, 25, 25, 0.6);  
+}
+
+/* Change color when outside the box */
+.cursor-dot.outside {
+    background-color: red; /* Change this to any color */
+}
+
+
+
+.name {
+    position: absolute;
+    top: 40px; /* Adjust spacing from the top */
+    left: 60px; /* Adjust spacing from the left */
+    font-size: 85px; /* Adjust text size */
+    font-weight: 500; /* Make it bold */
+    letter-spacing: -3px;
+}
+.job {
+    position: absolute;
+    top: 120px; /* Adjust spacing from the top */
+    left: 70px; /* Adjust spacing from the left */
+    font-size: 25px; /* Adjust text size */
+    font-weight: bold; /* Make it bold */
+    letter-spacing: 16.5px;
+}
+
+.cto {
+    position: absolute;
+    top: 160px; /* Adjust spacing from the top */
+    left: 70px; /* Adjust spacing from the left */
+    font-size: 15px; /* Adjust text size */
+    font-weight: 600; /* Make it bold */
+    letter-spacing: 1px;
+}
+
+.cto a {
+    text-decoration: none; /* removes underline */
+    color: inherit;         /* uses surrounding text color */
+}
+
+.mlflow {
+    position: absolute;
+    top: 180px; /* Adjust spacing from the top */
+    left: 70px; /* Adjust spacing from the left */
+    font-size: 15px; /* Adjust text size */
+    font-weight: 600; /* Make it bold */
+    letter-spacing: 0px;
+}
+
+.sidebar {
+    position: absolute;
+    top: 250px;
+    left: 70px;
+    padding-left: 20px;
+    border-left: 1px solid #191919;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #191919;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.1s ease;
+}
+
+.sidebar a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 0.5px;
+    background: #191919;
+    transition: width 0.1s ease, left 0.1s ease;
+}
+
+.sidebar a.active::after {
+    width: 100%;
+    left: 0;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    font-size: 5px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+/*    font-size: 10px;*/
+/*    font-weight: 200;*/
+}
+
+.nav-list li {
+    position: relative;
+    margin: 10px 0;
+}
+
+/* The box that will slide in */
+.nav-list li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -5px; /* Start slightly outside the border */
+    width: 0;
+    height: 100%;
+    background: #191919;
+    transition: width 0.3s ease-in-out;
+    z-index: -1; /* Ensures it goes behind the text */
+}
+
+/* On hover, the box expands */
+.nav-list li:hover::before {
+    width: 100%; /* Expands to cover the text */
+}
+
+/* Style for the text */
+.nav-list a {
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+    padding: 5px 10px;
+    display: inline-block;
+    position: relative;
+    z-index: 1; /* Keeps text above the hover effect */
+    transition: color 0.5s ease-in-out;
+}
+
+/* Change text color on hover */
+.nav-list li:hover a {
+    color: white;
+}
+
+.content {    
+  position: absolute;
+  top: 120px;
+/*  left: 300px;*/
+/*  width: 10%;*/
+/*  height: auto;*/
+  font-size: 24px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.content-item {
+/*    opacity: 0;*/
+/*    width: 70%;*/
+    height: auto;
+    animation: slideInLeft 0.8s ease-in-out forwards;
+    text-align: justify;
+/*    font-weight: 600;*/
+}
+
+.content-item a{
+    text-decoration: none; /* removes underline */
+    color: inherit;         /* uses surrounding text color */
+}
+
+/* Content container */
+#contentContainer {
+    right: 70px; /* Push content to the right */
+    left: 45%;
+/*    padding: 20px;*/
+    flex-grow: 1; /* Allows it to fill remaining space */
+/*    width: calc(100% - 200px); /* Ensures it takes full width */
+/*    width: 50%;*/
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+h2{
+    font-weight: 600;
+}
+
+.about-info{
+    text-align: right;
+}
+
+
+#sentence {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#changingWord {
+    color: #191919;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.cursor {
+    color: #ff5722;
+    animation: blink 0.6s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+
+.mission-container {
+    position: relative;
+    width: 27%;
+    /* top: 25%; */
+    bottom: -27rem;
+    right: -65%;
+    text-align: left;
+    /* font-size: 10px; */
+    font-family: "Bungee Shade", sans-serif;
+}
+
+.big-on {
+    font-size: 3rem;
+    font-weight: bold;
+    display: block;
+    transform: scaleY(2.5); /* Stretch vertically*/
+    position: absolute;
+    /* padding-right: 1rem; */
+}
+
+.right-text {
+    line-height: 1.0;
+    left: 85px;
+    top: -15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    /* width: 50%; */
+}
+
+.top-text {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.middle-text {
+    font-size: 1rem;
+    font-weight: normal;
+    margin-top: 0px;
+}
+
+.bottom-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 0px;
+}
+
+
+.projects-container {
+    /* width: 100%; */
+    height: 70vh;
+    right: -39.5px !important;
+    overflow-y: auto !important;
+    box-sizing: border-box;
+    text-align: right;
+    scroll-behavior: smooth;
+    /* background-color: #fff; */
+    /* border-left: 2px solid #eee; */
+
+      /* Smooth fade effect top and bottom */
+    mask-image: linear-gradient(to bottom, transparent, #191919 10%, #191919 80%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #191919 10%, #191919 80%, transparent);
+
+
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  }
+  
+  .projects-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  .first{
+    margin-top: 20px
+  }
+
+  .last{
+    margin-bottom: 100px
+  }
+
+  .project {
+    margin-bottom: 50px;
+    transition: color 0.3s ease;
+    /* text-transform: uppercase; */
+    letter-spacing: 3px;
+  }
+
+  .project a {
+    font-size: 55px;
+    font-weight: normal;
+    text-decoration: none;
+    color: #191919;
+    transition: color 0.3s ease;
+  }
+
+  .project a:hover {
+    color: #888;
+  }
+
+  .tech {
+    font-size: 20px;
+    font-weight: bold;
+    color: #191919;
+    margin-top: -15px;
+  }
+
+  .certificates {
+    margin-bottom: 50px;
+    transition: color 0.3s ease;
+    /* text-transform: uppercase; */
+    letter-spacing: 3px;
+  }
+
+  .certificates a {
+    font-size: 35px;
+    font-weight: normal;
+    text-decoration: none;
+    color: #191919;
+    transition: color 0.3s ease;
+  }
+
+  .certificates a:hover {
+    color: #888;
+  }
+
+  .cert-tech{
+    font-size: 20px;
+    font-weight: bold;
+    color: #191919;
+    margin-top: -10px
+  }
+
+
+/* CONTACT PAGE */
+ /* Contact Container */
+ .contact-container {
+    top: -1px !important;
+    right: -39.5px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    height: 94.5vh;
+}
+
+.contact-container2{
+    top: 370px !important;
+    right: -39.5px !important;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+    height: 26vh;
+}
+
+/* Contact Buttons */
+.contact-btn {
+    width: 200px;
+    padding: 15px;
+    height: 22.85vh;
+    margin: 0px;
+    border: 0.5px solid #191919;
+    background: #e6e6e6;
+    color: #191919;
+    font-size: 25px;
+    font-weight: bold;
+	font-family: 'Alumni Sans Pinstripe', sans-serif;
+    letter-spacing: 0.3vw;
+    text-transform: uppercase;
+    cursor: grab;
+    transition: color 0.3s ease, background 0.3s ease;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    border-right: none;
+}
+
+/* Colors for buttons when hovered */
+/* .linkedin { */
+    /* border-radius: 30px 30px 0px 0px; */
+    /* border: 0, 0, 0, 0; */
+/* } */
+
+/* .github {
+    border-radius: 30px 30px 0px 0px;
+}
+
+.email {
+    border-radius: 30px 30px 0px 0px;
+} 
+
+.phone {
+    /* border-radius: 0px 0px 30px 30px;
+}*/
+
+/* Colors for buttons when hovered */
+.linkedin:hover {
+    background: #0077b5;
+    color: white;
+}
+
+.github:hover {
+    background: black;
+    color: white;
+}
+
+.email:hover {
+    background: #ff7043;
+    color: white;
+}
+
+.phone:hover {
+    background: #4caf50;
+    color: white;
+}
+
+/* Expanding background effect */
+.hover-effect {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.6s ease-in-out, background-color 0.6s ease-in-out;
+    z-index: 1;
+}
