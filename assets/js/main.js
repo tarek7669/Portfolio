@@ -186,3 +186,41 @@ function attachEventListeners() {
         });
     });
 }
+
+// Toggle sidebar
+document.getElementById("chatToggle").addEventListener("click", () => {
+    document.getElementById("chatSidebar").classList.add("open");
+  });
+  
+  document.getElementById("closeChat").addEventListener("click", () => {
+    document.getElementById("chatSidebar").classList.remove("open");
+  });
+  
+  // Handle sending chat messages
+  document.getElementById("sendChat").addEventListener("click", () => {
+    const input = document.getElementById("chatInput");
+    const message = input.value.trim();
+    if (message !== "") {
+      const userMsg = document.createElement("div");
+      userMsg.className = "chat-message user";
+      userMsg.textContent = message;
+      document.getElementById("chatBody").appendChild(userMsg);
+  
+      // Simulate bot response
+      const botMsg = document.createElement("div");
+      botMsg.className = "chat-message bot";
+      botMsg.textContent = "I'll get back to you on that!";
+      document.getElementById("chatBody").appendChild(botMsg);
+  
+      input.value = "";
+      document.getElementById("chatBody").scrollTop = document.getElementById("chatBody").scrollHeight;
+    }
+  });
+  
+
+  const chatInput = document.getElementById('chat-input');
+
+chatInput.addEventListener('input', () => {
+  chatInput.style.height = 'auto'; // reset height
+  chatInput.style.height = chatInput.scrollHeight + 'px'; // set to scroll height
+});
