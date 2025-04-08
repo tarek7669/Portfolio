@@ -187,38 +187,86 @@ function attachEventListeners() {
     });
 }
 
+
+// CHATBOT
+const chatInput = document.getElementById('chatInput');
 // Toggle sidebar
 document.getElementById("chatToggle").addEventListener("click", () => {
     document.getElementById("chatSidebar").classList.add("open");
-  });
+});
   
-  document.getElementById("closeChat").addEventListener("click", () => {
+document.getElementById("closeChat").addEventListener("click", () => {
     document.getElementById("chatSidebar").classList.remove("open");
-  });
+});
   
-  // Handle sending chat messages
-  document.getElementById("sendChat").addEventListener("click", () => {
+// Handle sending chat messages
+document.getElementById("sendChat").addEventListener("click", async () => {
+    await sendMessage();
+});
+  
+chatInput.addEventListener("keydown", async function (event) {
+    // Check if Enter is pressed (without Shift)
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault(); // prevent new line
+      await sendMessage();     // trigger send
+    }
+});
+
+async function sendMessage() {
     const input = document.getElementById("chatInput");
     const message = input.value.trim();
     if (message !== "") {
-      const userMsg = document.createElement("div");
-      userMsg.className = "chat-message user";
-      userMsg.textContent = message;
-      document.getElementById("chatBody").appendChild(userMsg);
-  
-      // Simulate bot response
-      const botMsg = document.createElement("div");
-      botMsg.className = "chat-message bot";
-      botMsg.textContent = "I'll get back to you on that!";
-      document.getElementById("chatBody").appendChild(botMsg);
-  
-      input.value = "";
-      document.getElementById("chatBody").scrollTop = document.getElementById("chatBody").scrollHeight;
-    }
-  });
-  
+        input.value = "";
 
-  const chatInput = document.getElementById('chat-input');
+        const userMsg = document.createElement("div");
+        userMsg.className = "chat-message user";
+        userMsg.textContent = message;
+        document.getElementById("chatBody").appendChild(userMsg);
+
+        typingIndicator = document.createElement("div");
+        typingIndicator.textContent = "typing...";
+        typingIndicator.style.fontStyle = "italic";
+        typingIndicator.style.color = "#19191972";
+        document.getElementById("chatBody").appendChild(typingIndicator);
+
+        // Send to FastAPI
+        try {
+        const response = await fetch("https://clone.up.railway.app/ask", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question: userMsg.textContent })
+        });
+
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        // Remove typing indicator
+        if (typingIndicator) {
+            document.getElementById("chatBody").removeChild(typingIndicator);
+            typingIndicator = null;
+        }
+  
+        const botMsg = document.createElement("div");
+        const data = await response.json();
+        botMsg.className = "chat-message bot";
+        botMsg.textContent = data.response;
+        document.getElementById("chatBody").appendChild(botMsg);
+
+        document.getElementById("chatBody").scrollTop = document.getElementById("chatBody").scrollHeight;
+    }
+    catch (error) {
+        if (typingIndicator) {
+            document.getElementById("chatBody").removeChild(typingIndicator);
+            typingIndicator = null;
+        }
+        console.error("Error sending message:", error);
+        const errorMsg = document.createElement("div");
+        errorMsg.className = "chat-message bot";
+        errorMsg.textContent = "Error: " + error.message;
+        document.getElementById("chatBody").appendChild(errorMsg);
+        }
+    }
+}
+
 
 chatInput.addEventListener('input', () => {
   chatInput.style.height = 'auto'; // reset height
