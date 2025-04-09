@@ -1,5 +1,9 @@
 <div class="content-item">
     <div class="projects-container">
+        <!-- <div class="project first">
+           <a onclick="openChatbot()">My Clone</a>
+          <div class="tech">RAG, ChromaDB, LangChain, OpenAI API, JSON</div>
+        </div> -->
         <div class="project first">
           <a href="https://github.com/tarek7669/Customer-Support-AI-Chatbot" target="_blank">Customer Support AI Agent</a>
           <div class="tech">LangChain, JSON, RAG, OpenAI API, ChromaDB</div>
@@ -37,4 +41,18 @@
           <div class="tech">Python, OpenCV, Numpy, TensorFlow, YOLOv5, Siamese Architecture</div>
         </div>
       </div>
+</div>
+
+<div id="chatSidebar" class="chat-sidebar">
+  <div class="chat-header">
+    <span>Talk With Me (Literally)</span>
+    <button id="closeChat">✖</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="chat-message bot">Hi! I am virtual Tarek. What do you want to know?</div>
+  </div>
+  <div class="chat-input">
+    <textarea type="text" id="chatInput" placeholder="Type your message..."></textarea>
+    <button id="sendChat">➤</button>
+  </div>
 </div>

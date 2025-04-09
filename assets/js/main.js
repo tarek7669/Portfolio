@@ -56,6 +56,14 @@ function loadPage(page) {
             if (page.includes("home")) {
                 initializeTypingEffect();
             }
+            else if(page.includes("projects")){
+                console.log("\n\n HELL YEAH\n\n\n");
+                // document.getElementById("open-chat-project").addEventListener("click", function (e) {
+                //     console.log("\n\n\n\ here we are \n\n\n\n");
+                //     e.preventDefault();
+                //     document.getElementById("chatSidebar").classList.add("open");
+                // });
+            }
 
             // Remove "active" class from all nav links
             document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
@@ -272,3 +280,23 @@ chatInput.addEventListener('input', () => {
   chatInput.style.height = 'auto'; // reset height
   chatInput.style.height = chatInput.scrollHeight + 'px'; // set to scroll height
 });
+
+// close chatbot if clicked outside
+const chatSidebar = document.getElementById("chatSidebar");
+const toggleButton = document.getElementById("chatToggle");
+
+document.addEventListener("click", function (event) {
+  const isClickInsideChat = chatSidebar.contains(event.target);
+  const isToggleButton = toggleButton.contains(event.target);
+
+  // If clicked outside the chat and not the toggle button, close it
+  if (!isClickInsideChat && !isToggleButton) {
+    document.getElementById("chatSidebar").classList.remove("open");
+  }
+});
+
+
+function openChatbot(){
+    console.log("\n\n inside the function \n\n\n\n");
+    document.getElementById("chatSidebar").classList.add("open");
+}
