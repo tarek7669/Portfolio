@@ -726,7 +726,7 @@ h2{
         transition: color 0.1s ease;
     }
     
-    .sidebar a::after {
+    /* .sidebar a::after {
         content: "";
         position: absolute;
         left: 50%;
@@ -735,12 +735,12 @@ h2{
         height: 0.5px;
         background: #191919;
         transition: width 0.1s ease, left 0.1s ease;
-    }
+    } */
     
-    .sidebar a.active::after {
+    /* .sidebar a.active::after {
         width: 100%;
         left: 0;
-    }
+    } */
     
     .nav-list {
         list-style: none;
@@ -759,29 +759,29 @@ h2{
     }
     
     /* The box that will slide in */
-    .nav-list li::before {
+    /* .nav-list li::before {
         content: "";
         position: absolute;
         top: 0;
-        left: -5px; /* Start slightly outside the border */
+        left: -5px; /* Start slightly outside the border
         width: 0;
         height: 100%;
         background: #191919;
         transition: width 0.3s ease-in-out;
-        z-index: -1; /* Ensures it goes behind the text */
-    }
+        z-index: -1; /* Ensures it goes behind the text
+    } */
     
     /* On hover, the box expands */
-    .nav-list li:hover::before {
-        width: 100%; /* Expands to cover the text */
-    }
+    /* .nav-list li:hover::before {
+        width: 100%; /* Expands to cover the text
+    } */
     
     /* Style for the text */
     .nav-list a {
         text-decoration: none;
         font-size: 13px;
         font-weight: bold;
-        color: black;
+        color: #191919;
         padding: 1px 0px;
         display: inline-block;
         position: relative;
@@ -888,7 +888,7 @@ h2{
         position: relative;
         width: 100%;
         /* top: 25%; */
-        bottom: -32rem;
+        bottom: -69vh;
         right: -0%;
         text-align: left;
         /* font-size: 10px; */
@@ -1022,8 +1022,8 @@ h2{
     /* CONTACT PAGE */
      /* Contact Container */
      .contact-container {
-        top: 101px !important;
-        right: -19.5px !important;
+        top: 14vh !important;
+        right: -5.5vw !important;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
@@ -1034,8 +1034,8 @@ h2{
     }
     
     .contact-container2{
-        top: 362.5px !important;
-        right: -19.5px !important;
+        top: 49vh !important;
+        right: -5.5px !important;
         display: flex;
         flex-direction: row;
         align-items: flex-end;
@@ -1095,7 +1095,7 @@ h2{
         top: 0;
         right: -250px;
         width: 250px;
-        height: 95vh;
+        height: 85vh;
         background: #e6e6e6;
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
         display: flex;
