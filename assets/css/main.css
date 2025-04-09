@@ -1035,7 +1035,7 @@ h2{
     
     .contact-container2{
         top: 49vh !important;
-        right: -5.5px !important;
+        right: -5.5vw !important;
         display: flex;
         flex-direction: row;
         align-items: flex-end;
