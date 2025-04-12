@@ -164,6 +164,7 @@ body, html{
     font-size: 5px;
     letter-spacing: 10px;
     text-transform: uppercase;
+    cursor: pointer;
 /*    font-size: 10px;*/
 /*    font-weight: 200;*/
 }
@@ -378,6 +379,10 @@ h2{
 
   .last{
     margin-bottom: 100px
+  }
+
+  .my-clone{
+    cursor: pointer;
   }
 
   .project {
