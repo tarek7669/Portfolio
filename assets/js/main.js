@@ -56,14 +56,30 @@ function loadPage(page) {
             if (page.includes("home")) {
                 initializeTypingEffect();
             }
-            else if(page.includes("projects")){
-                console.log("\n\n HELL YEAH\n\n\n");
-                // document.getElementById("open-chat-project").addEventListener("click", function (e) {
-                //     console.log("\n\n\n\ here we are \n\n\n\n");
-                //     e.preventDefault();
-                //     document.getElementById("chatSidebar").classList.add("open");
-                // });
-            }
+            // else if(page.includes("projects")){
+            //     const cloneLink = document.getElementById("myCloneProject");
+            //     const sidebar = document.getElementById("chatSidebar");
+            //     const closeChat = document.getElementById("closeChat");
+
+            //     if (cloneLink && sidebar) {
+            //         console.log("\n\nClone link found and ready!\n\n");
+
+            //         cloneLink.addEventListener("click", (e) => {
+            //             // e.preventDefault();
+            //             console.log("\n\nClone project clicked!\n\n");
+            //             sidebar.classList.add("open");
+            //         });
+                    
+            //         closeChat.addEventListener("click", (e) => {
+            //             sidebar.classList.remove("open");
+            //         });
+            //     }
+            //     else {
+            //     console.warn("Clone link or sidebar not found.");
+            //     }
+            //     console.log("Sidebar classes:", sidebar.className);
+            //     console.log("Sidebar right value:", getComputedStyle(sidebar).right);
+            // }
 
             // Remove "active" class from all nav links
             document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
@@ -202,6 +218,10 @@ const chatInput = document.getElementById('chatInput');
 document.getElementById("chatToggle").addEventListener("click", () => {
     document.getElementById("chatSidebar").classList.add("open");
 });
+
+// document.getElementById("myCloneProject").addEventListener("click", () => {
+//     document.getElementById("chatSidebar").classList.add("open");
+// });
   
 document.getElementById("closeChat").addEventListener("click", () => {
     document.getElementById("chatSidebar").classList.remove("open");
@@ -239,7 +259,7 @@ async function sendMessage() {
 
         // Send to FastAPI
         try {
-        const response = await fetch("https://clone.up.railway.app/ask", {
+        const response = await fetch("https://clone-k02u.onrender.com/ask", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ question: userMsg.textContent })
@@ -296,7 +316,26 @@ document.addEventListener("click", function (event) {
 });
 
 
-function openChatbot(){
-    console.log("\n\n inside the function \n\n\n\n");
-    document.getElementById("chatSidebar").classList.add("open");
-}
+// const my_clone_project = document.getElementById("my-clone");
+// document.getElementById("my-clone").addEventListener("click", () => {
+//     document.getElementById("chatSidebar").classList.add("open");
+// });
+
+// function openChatbot(){
+//     console.log("\n\n inside the function \n\n\n\n");
+//     document.getElementById("chatSidebar").classList.add("open");
+// }
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     console.log("\n\n inside dom 1 \n\n\n\n");
+//     const myCloneProject = document.getElementById("my-clone");
+//     const chatSidebar = document.getElementById("chatSidebar");
+
+//     if (myCloneProject && chatSidebar) {
+//         console.log("\n\n inside dom 2 \n\n\n\n");
+//         myCloneProject.addEventListener("click", (e) => {
+//         e.preventDefault(); // prevent any default link action
+//         chatSidebar.classList.add("open");
+//         });
+//     }
+// });
