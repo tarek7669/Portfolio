@@ -35,7 +35,7 @@ export default function Contact() {
     {
       icon: <Mail className="h-6 w-6" />,
       text: "Email",
-      href: "mailto:your.email@example.com",
+      href: "mailto:tarek.ashraf.7669@gmail.com",
       color: "#FF6B6B",
       id: "email",
       noBorderBottom: hoveredColor ? false : true,
