@@ -71,17 +71,5 @@ export default function Home() {
         </h1>
       </div>
     </div>
-    
-    // <div className="h-full w-full flex items-end justify-end relative">
-    //   <div className="mb-6 mr-8 text-left">
-    //     <h1 className="relative text-3xl md:text-4xl font-normal tracking-tight justify-start">
-    //       <div>On a mission to </div>
-    //       <span className="relative">
-    //         {currentText}
-    //         <span className="absolute -right-[2px] top-0 h-full w-[1px] bg-[#191919] animate-blink"></span>
-    //       </span>
-    //     </h1>
-    //   </div>
-    // </div>
   )
 }
