@@ -195,7 +195,7 @@ const ChatbotDrawer = () => {
             >
             {isRecruiter
                 ? `Hi ${company ? `, visitor from ${company}` : "there"}! I am virtual Tarek. What do you want to know?`
-                : "Hi there, feel free to ask me anything about my projects, skills, or just say hi!"}
+                : "Hi! I am virtual Tarek.\nFeel free to ask me anything about my projects, skills, or just say hi ;)"}
             </p>
             {messages.map((msg, i) => (
                 <div
