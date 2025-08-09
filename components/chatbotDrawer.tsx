@@ -179,14 +179,14 @@ const ChatbotDrawer = () => {
                 backgroundColor: "#fcfefe",
             }}
         >
-            <p
+            {/* <p
             className="text-sm transition-colors duration-1000"
             style={{
                 color: "#191919",
             }}
             >
             Hi{company != "" ? `, visitor from ${company}` : "! I am virtual Tarek. What do you want to know?"}
-            </p>
+            </p> */}
             <p
             className="text-sm transition-colors duration-1000"
             style={{
