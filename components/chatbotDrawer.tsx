@@ -5,30 +5,75 @@ import { X } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 
+
+
+// Fetch visitor info and display alert if recruiter
+export function useVisitorCompany() {
+  const [company, setCompany] = useState<string | null>(null);
+  const [isRecruiter, setIsRecruiter] = useState(false);
+
+  useEffect(() => {
+    async function fetchCompany() {
+      try {
+        // 1️⃣ Get visitor info
+        const res = await fetch(
+          `https://ipinfo.io/json?token=${process.env.NEXT_PUBLIC_IPINFO_TOKEN}`
+        );
+        const data = await res.json();
+
+        const orgRaw = data.org || "";
+        const referrer = document.referrer || "";
+
+        // 2️⃣ Common ISP patterns (autonomous systems, consumer ISPs)
+        const ispPatterns = [
+          /AS\d+/i,          // AS number
+          /telecom/i,
+          /vodafone/i,
+          /comcast/i,
+          /verizon/i,
+          /mobile/i,
+          /isp/i,
+          /internet/i
+        ];
+
+        const isISP = ispPatterns.some((p) => p.test(orgRaw));
+
+        if (!isISP && orgRaw) {
+          // Likely a business network
+          setCompany(orgRaw);
+          setIsRecruiter(true);
+        } else {
+          // 3️⃣ Fall back to recruiter-heavy referrers
+          if (/linkedin\.com|indeed\.com|glassdoor\.com|angel\.co/i.test(referrer)) {
+            setCompany("a recruiter");
+            setIsRecruiter(true);
+          } else {
+            setCompany(null);
+            setIsRecruiter(false);
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching company info:", err);
+      }
+    }
+
+    fetchCompany();
+  }, []);
+
+  return { company, isRecruiter };
+}
+
 const ChatbotDrawer = () => {
     const { isOpen, closeChatbot } = useChatbot();
     const [messages, setMessages] = useState<
       { sender: "user" | "bot"; content: string }[]
     >([]);
     const [loading, setLoading] = useState(false);
-    const [company, setCompany] = useState("");
+    const { company, isRecruiter } = useVisitorCompany();
   
     const drawerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const chatBodyRef = useRef<HTMLDivElement>(null);
-
-    // Fetch visitor info and display alert if recruiter
-    useEffect(() => {
-      const fetchVisitorInfo = async () => {
-        try {
-          const res = await fetch("https://ipinfo.io/json?token=bf8c98e67acd97");
-          const data = await res.json();
-          setCompany(data.org || "");
-        } catch {}
-      };
-
-      fetchVisitorInfo();
-    }, []);
 
     // Smooth scroll
     useEffect(() => {
@@ -141,6 +186,16 @@ const ChatbotDrawer = () => {
             }}
             >
             Hi{company != "" ? `, visitor from ${company}` : "! I am virtual Tarek. What do you want to know?"}
+            </p>
+            <p
+            className="text-sm transition-colors duration-1000"
+            style={{
+                color: "#191919",
+            }}
+            >
+            {isRecruiter
+                ? `Hi ${company ? `, visitor from ${company}` : "there"}! I am virtual Tarek. What do you want to know?`
+                : "Hi there, feel free to ask me anything about my projects, skills, or just say hi!"}
             </p>
             {messages.map((msg, i) => (
                 <div

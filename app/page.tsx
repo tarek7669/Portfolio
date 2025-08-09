@@ -60,23 +60,25 @@ export default function Home() {
   }, [currentText, isDeleting, phraseIndex, phrases, typingSpeed])
 
   // Fetch visitor info and display alert if recruiter
-  useEffect(() => {
-    const fetchVisitorInfo = async () => {
-      try {
-        const res = await fetch("https://ipinfo.io/json?token=bf8c98e67acd97");
-        const data = await res.json();
-        console.log("Visitor Info:", data);
+  // useEffect(() => {
+  //   const fetchVisitorInfo = async () => {
+  //     try {
+  //       const ip_res = await fetch("https://ipinfo.io/json?token=bf8c98e67acd97");
+  //       const ip_data = await ip_res.json();
+  //       const res = await fetch(`http://api.ipapi.com/api/${ip_data.ip}?access_key=2be3a06dbb8e1e76f3708fe211e73b8b`)
+  //       const data = await res.json();
+  //       console.log("Visitor Info:", data);
 
-        if (data.org && /recruit|talent|hiring/i.test(data.org)) {
-          alert(`👋 Hey Recruiter from ${data.org}, want to see my AI skills?`);
-        }
-      } catch (err) {
-        console.error("Error fetching IP info:", err);
-      }
-    };
+  //       if (data.org && /recruit|talent|hiring/i.test(data.org)) {
+  //         alert(`👋 Hey Recruiter from ${data.org}, want to see my AI skills?`);
+  //       }
+  //     } catch (err) {
+  //       console.error("Error fetching IP info:", err);
+  //     }
+  //   };
 
-    fetchVisitorInfo();
-  }, []);
+  //   fetchVisitorInfo();
+  // }, []);
 
   return (
     <div className="h-full w-full flex items-end justify-end relative">
