@@ -11,10 +11,24 @@ const ChatbotDrawer = () => {
       { sender: "user" | "bot"; content: string }[]
     >([]);
     const [loading, setLoading] = useState(false);
+    const [company, setCompany] = useState("");
   
     const drawerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const chatBodyRef = useRef<HTMLDivElement>(null);
+
+    // Fetch visitor info and display alert if recruiter
+    useEffect(() => {
+      const fetchVisitorInfo = async () => {
+        try {
+          const res = await fetch("https://ipinfo.io/json?token=bf8c98e67acd97");
+          const data = await res.json();
+          setCompany(data.org || "");
+        } catch {}
+      };
+
+      fetchVisitorInfo();
+    }, []);
 
     // Smooth scroll
     useEffect(() => {
@@ -126,7 +140,7 @@ const ChatbotDrawer = () => {
                 color: "#191919",
             }}
             >
-            Hi! I am virtual Tarek. What do you want to know?
+            Hi{company != "" ? `, visitor from ${company}` : "! I am virtual Tarek. What do you want to know?"}
             </p>
             {messages.map((msg, i) => (
                 <div
